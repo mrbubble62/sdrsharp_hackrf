@@ -26,8 +26,9 @@ namespace SDRSharp.HackRF
 
             samplerateComboBox.SelectedIndex = Utils.GetIntSetting("HackRFSampleRate", 3);
             tunerAmpCheckBox.Checked = Utils.GetBooleanSetting("HackRFTunerAmp");
-            tunerLNAGainTrackBar.Value = Utils.GetIntSetting("LNATunerGain", 3);
-            tunerVGAGainTrackBar.Value = Utils.GetIntSetting("VGATunerGain", 12);
+            antennaPowerCheckBox.Checked = Utils.GetBooleanSetting("HackRFAntennaPower");		
+            tunerLNAGainTrackBar.Value = Utils.GetIntSetting("LNATunerGain", 16);
+            tunerVGAGainTrackBar.Value = Utils.GetIntSetting("VGATunerGain", 16);
             tunerIFFreq.Value = Utils.GetIntSetting("HackRFIFFreq", 0);
             gainLNALabel.Text = (tunerLNAGainTrackBar.Value * LNAGainStep) + " dB";
             gainVGALabel.Text = (tunerVGAGainTrackBar.Value * VGAGainStep) + " dB";
@@ -38,8 +39,8 @@ namespace SDRSharp.HackRF
             gainLNALabel.Visible = tunerLNAGainTrackBar.Enabled = true;
             gainVGALabel.Visible = tunerVGAGainTrackBar.Enabled = true;
             IFLabel.Visible = tunerIFFreq.Enabled = true;
-            tunerAmpCheckBox.Enabled = true;
-
+            tunerAmpCheckBox.Enabled = false;
+			antennaPowerCheckBox.Enabled = false;
             _initialized = true;
         }
 
@@ -141,6 +142,7 @@ namespace SDRSharp.HackRF
             tunerIFFreq_Scroll(null, null);
             samplerateComboBox_SelectedIndexChanged(null, null);
             tunerAmpCheckBox_CheckedChanged(null, null);
+			antennaPowerCheckBox_CheckedChanged(null, null);
             if (!_owner.Device.IsStreaming)
             {
                 // A timer is required since for whatever reason, the amp (and assumingly other settings)
@@ -178,6 +180,16 @@ namespace SDRSharp.HackRF
             Utils.SaveSetting("HackRFTunerAmp", tunerAmpCheckBox.Checked);
         }
 
+		private void antennaPowerCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_initialized)
+            {
+                return;
+            }
+            _owner.Device.UseAntennaPower = antennaPowerCheckBox.Checked;
+            Utils.SaveSetting("HackRFAntennaPower", antennaPowerCheckBox.Checked);
+        }
+		
         private void tunerVGAGainTrackBar_Scroll(object sender, EventArgs e)
         {
             if (!_initialized)

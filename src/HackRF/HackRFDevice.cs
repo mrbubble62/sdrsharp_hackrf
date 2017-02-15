@@ -23,7 +23,8 @@ namespace SDRSharp.HackRF
         private IntPtr _dev;
         private readonly string _name;
         private readonly int[] _supportedVGAGains;
-        private bool _useTunerAMP = true;
+        private bool _useTunerAMP = false;
+		private bool _useAntennaPower = false;
         private bool _useHackRFAGC;
         public int _initialLNAGain = -1;
         public int _initialVGAGain = -1;
@@ -135,6 +136,12 @@ namespace SDRSharp.HackRF
             if (r != 0)
             {
                 throw new ApplicationException("hackrf_set_amp_enable error");
+            }
+			
+			r = NativeMethods.hackrf_set_antenna_enable(_dev, 1); /* 0 = OFF, 1= ON */
+            if (r != 0)
+            {
+                throw new ApplicationException("hackrf_set_antenna_enable error");
             }
 
             baseband_filter_bw_hz = NativeMethods.hackrf_compute_baseband_filter_bw_round_down_lt(_sampleRate);
@@ -261,6 +268,20 @@ namespace SDRSharp.HackRF
             }
         }
 
+		public bool UseAntennaPower
+        {
+            get { return _useAntennaPower; }
+            set
+            {
+                _useAntennaPower = value;
+                if (_dev != IntPtr.Zero)
+                {
+                    NativeMethods.hackrf_set_antenna_enable(_dev, (uint)(_useAntennaPower ? 1 : 0));
+                }
+
+            }
+        }
+		
         public SamplingMode SamplingMode
         {
             get { return _samplingMode; }

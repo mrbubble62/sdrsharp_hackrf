@@ -38,6 +38,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.samplerateComboBox = new System.Windows.Forms.ComboBox();
             this.tunerAmpCheckBox = new System.Windows.Forms.CheckBox();
+			this.antennaPowerCheckBox = new System.Windows.Forms.CheckBox();
             this.gainLNALabel = new System.Windows.Forms.Label();
             this.tunerTypeLabel = new System.Windows.Forms.Label();
             this.gainVGALabel = new System.Windows.Forms.Label();
@@ -139,13 +140,27 @@
             this.tunerAmpCheckBox.Checked = true;
             this.tunerAmpCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tunerAmpCheckBox.Enabled = false;
-            this.tunerAmpCheckBox.Location = new System.Drawing.Point(12, 99);
+            this.tunerAmpCheckBox.Location = new System.Drawing.Point(12, 87);
             this.tunerAmpCheckBox.Name = "tunerAmpCheckBox";
             this.tunerAmpCheckBox.Size = new System.Drawing.Size(166, 17);
             this.tunerAmpCheckBox.TabIndex = 5;
-            this.tunerAmpCheckBox.Text = "Enable HackRF Internal AMP";
+            this.tunerAmpCheckBox.Text = "Enable Pre Amp +14dB";
             this.tunerAmpCheckBox.UseVisualStyleBackColor = true;
             this.tunerAmpCheckBox.CheckedChanged += new System.EventHandler(this.tunerAmpCheckBox_CheckedChanged);
+			// 
+            // antennaPowerCheckBox
+            // 
+            this.antennaPowerCheckBox.AutoSize = true;
+            this.antennaPowerCheckBox.Checked = false;
+            this.antennaPowerCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.antennaPowerCheckBox.Enabled = false;
+            this.antennaPowerCheckBox.Location = new System.Drawing.Point(12, 102);
+            this.antennaPowerCheckBox.Name = "antennaPowerCheckBox";
+            this.antennaPowerCheckBox.Size = new System.Drawing.Size(166, 17);
+            this.antennaPowerCheckBox.TabIndex = 5;
+            this.antennaPowerCheckBox.Text = "Enable Antenna port power";
+            this.antennaPowerCheckBox.UseVisualStyleBackColor = true;
+            this.antennaPowerCheckBox.CheckedChanged += new System.EventHandler(this.antennaPowerCheckBox_CheckedChanged);
             // 
             // gainLNALabel
             // 
@@ -227,7 +242,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(271, 315);
+            this.ClientSize = new System.Drawing.Size(271, 355);
             this.Controls.Add(this.IFLabel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tunerIFFreq);
@@ -237,6 +252,7 @@
             this.Controls.Add(this.tunerTypeLabel);
             this.Controls.Add(this.gainLNALabel);
             this.Controls.Add(this.tunerAmpCheckBox);
+			this.Controls.Add(this.antennaPowerCheckBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.samplerateComboBox);
             this.Controls.Add(this.label2);
@@ -274,6 +290,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox samplerateComboBox;
         private System.Windows.Forms.CheckBox tunerAmpCheckBox;
+		private System.Windows.Forms.CheckBox antennaPowerCheckBox;
         private System.Windows.Forms.Label gainLNALabel;
         private System.Windows.Forms.Label tunerTypeLabel;
         private System.Windows.Forms.Label gainVGALabel;
